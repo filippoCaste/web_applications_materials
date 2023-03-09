@@ -1,0 +1,14 @@
+{
+  "name": "lab1",
+  "version": "1.0.0",
+  "description": "first lab of web application I",
+  "main": "(exercise2.js)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Filippo Castellarin",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.7"
+  }
+}
