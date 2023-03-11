@@ -16,6 +16,7 @@ function FilmLibrary(film) {
 
     this.print = () => {
         console.log("\nList of available films:");
+        this.films.sort((f1,f2) => f1.id - f2.id);
         this.films.forEach((f) => {
             console.log(` - ${f.id}, ${f.title}, ${f.isFavorite}, ${(f.date)||'not set'}, ${f.score || 'not assigned'}`);
         }, 0, this.films)
@@ -28,7 +29,7 @@ function FilmLibrary(film) {
     }
 
     this.printSorted = () => {
-        console.log("\nList of sorted films:");
+        console.log("\nList of sorted films (by date):");
         this.sortedFilms.forEach((f) => {
             console.log(` - ${f.id}, ${f.title}, ${f.isFavorite}, ${(f.date)||'not set'}, ${f.score || 'not assigned'}`);
         }, 0, this.sortedFilms)
@@ -46,7 +47,7 @@ function FilmLibrary(film) {
     }
 
     this.getRated = () => {
-        const my_copy = this.films.filter((f) => f.score && 1);
+        const my_copy = this.films.filter((f) => f.score);
         my_copy.sort((f1,f2) => f2.score - f1.score);
 
         console.log("\nList of available films sorted by score:")
@@ -77,6 +78,17 @@ const film6 = new Film(6, "Shrek");
 film6.date = dayjs("March 21, 2022");
 film6.score = 5;
 
+const film7 = new Film(7, "Mare Fuori", true);
+film7.date = dayjs("April 13, 2023");
+film7.score = 5;
+
+const film8 = new Film(8, "Una pezza di Lundini", true);
+film8.date = dayjs("May 2, 2023");
+film8.score = 5;
+
+const film9 = new Film(9, "Saw IV");
+film9.date = dayjs("2022-07-12");
+film9.score = 4.5;
 /* 
     Id: 1, Title: Pulp Fiction, Favorite: true, Watch date: March 10, 2023, Score: 5
     Id: 2, Title: 21 Grams, Favorite: true, Watch date: March 17, 2023, Score: 4
@@ -92,6 +104,9 @@ library.addNewFilm(film3);
 library.addNewFilm(film2);
 library.addNewFilm(film4);
 library.addNewFilm(film6);
+library.addNewFilm(film7);
+library.addNewFilm(film8);
+library.addNewFilm(film9);
 library.print();
 
 library.sortByDate();
