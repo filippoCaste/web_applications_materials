@@ -12,105 +12,145 @@
     <title>Film Library - Lab 3</title>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar text-bg-primary">
-            <div class="container-fluid row">
-                <div class="col-4">
-                    <a class="navbar-brand" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-reels-fill">
-                            <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                            <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                            <path
-                                d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
-                        </svg>
-                        FilmLibrary
-                    </a>
-                </div>
-                <div class="col-4">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-                    </form>
-                </div>
-                <div class="col-4">
-                    <a class="position-absolute top-0 end-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="bg-dark" class="bi bi-person" >
-                            <path
-                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
-                        </svg>
-                    </a>
-                </div>
+    <nav class="navbar text-bg-primary">
+        <div class="container-fluid row">
+            <div class="col-4">
+                <a class="navbar-brand" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" class="bi bi-camera-reels-fill">
+                        <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                        <path
+                            d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
+                    </svg>
+                    FilmLibrary
+                </a>
+            </div>
+            <div class="col-4">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                </form>
+            </div>
+            <div class="col-4">
+                <a class="position-absolute top-0 end-0 mx-auto" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="bg-dark" class="bi bi-person" >
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+    </nav>
+
+    <main>
+        
+        <div class="row">
+            <div class="col-md-4 bg-light offcanvas-md">
+                <!-- <div class="d-grid gap-2"> -->
+                    <div class="list-group m-2">
+                        <a href="#" class="list-group-item list-group-item-action active border-bottom" aria-current="true">
+                            All
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action bg-light border-0">Favorites</a>
+                        <a href="#" class="list-group-item list-group-item-action bg-light border-0">Best rated</a>
+                        <a href="#" class="list-group-item list-group-item-action bg-light border-0">Seen Last Month</a>
+                        <a href='#' class="list-group-item list-group-item-action bg-light border-0">Unseen</a>
+                    </div>    
+                <!-- </div> -->
             </div>
 
-        </nav>
+            <div class="col-md-8">
+                <h1 class="strong">All</h1>
+                
+                <table class="table table-striped mx-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Favorite</th>
+                            <th scope="col">Last watch date</th>
+                            <th scope="col">Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><p>Pulp Fiction</p></td>
+                            <td><input type="checkbox"> Favorite</td>
+                            <td>March 12, 2023</td>
+                            <td>
+                                <script>
+                                    for (let i = 0; i < 3; i++)
+                                        document.writeln("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\"><path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" /></svg > ");
+                                    for (let i = 0; i < 2; i++) {
+                                        document.write("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star\" viewBox=\"0 0 16 16\"><path d=\"M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z\" /></svg > ");
+                                    }
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p class="red">Shrek</p></td>
+                            <td><input type="checkbox" checked> Favorite</td>
+                            <td>January 1, 2018</td>
+                            <td>
+                                <script>
+                                    for (let i = 0; i < 5; i++)
+                                        document.writeln("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\"><path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" /></svg > ");
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p class="red">Shrek 2</p></td>
+                            <td><input type="checkbox" checked> Favorite</td>
+                            <td>July 1, 2022</td>
+                            <td>
+                                <script>
+                                    for (let i = 0; i < 5; i++)
+                                        document.writeln("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\"><path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" /></svg > ");
+                                </script>
 
-        <main>
-            <div class="row">
-                <div class="col-4">
-                    <div class="d-grid gap-2">
-                        <button class="btn bg-light" type="button">All</button>
-                        <button class="btn" type="button">Favorites</button>
-                        <button class="btn" type="button">Best Rated</button>
-                        <button class="btn" type="button">Seen Last Month</button>
-                        <button class="btn" type="button">Unseen</button>
-    
-                    </div>
-                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>Star Wars</p></td>
+                            <td><input type="checkbox"> Favorite</td>
+                            <td>April 7, 2021</td>
+                            <td>
+                                <script>
+                                    for (let i = 0; i < 5; i++)
+                                        document.writeln("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\"><path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" /></svg > ");
+                                </script>
 
-                <div class="col-8">
-                    <h1 class="strong">All</h1>
-                    
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Favorite</th>
-                                <th scope="col">Last watch date</th>
-                                <th scope="col">Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pulp Fiction</td>
-                                <td><input type="checkbox">Favorite</td>
-                                <td>March 10, 2023</td>
-                                <td>Five Stars</td>
-                            </tr>
-                            <tr>
-                                <td>Pulp Fiction</td>
-                                <td><input type="checkbox">Favorite</td>
-                                <td>March 10, 2023</td>
-                                <td>Five Stars</td>
-                            </tr>
-                            <tr>
-                                <td>Pulp Fiction</td>
-                                <td><input type="checkbox">Favorite</td>
-                                <td>March 10, 2023</td>
-                                <td>Five Stars</td>
-                            </tr>
-                            <tr>
-                                <td>Pulp Fiction</td>
-                                <td><input type="checkbox">Favorite</td>
-                                <td>March 10, 2023</td>
-                                <td>Five Stars</td>
-                            </tr>
-                            <tr>
-                                <td>Pulp Fiction</td>
-                                <td><input type="checkbox">Favorite</td>
-                                <td>March 10, 2023</td>
-                                <td>Five Stars</td>
-                            </tr>
-                        </tbody>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>The wolf of Wall Street</p></td>
+                            <td><input type="checkbox"> Favorite</td>
+                            <td>March 10, 2020</td>
+                            <td>
+                                <script>
+                                    for (let i = 0; i < 2; i++)
+                                        document.writeln("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\"><path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" /></svg > ");
+                                    for (let i = 0; i < 3; i++) {
+                                            document.writeln("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star\" viewBox=\"0 0 16 16\"><path d=\"M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z\" /></svg > ");
+                                        }
+                                </script>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                    </table>
-                </div>
+                <button class="btn fltrght blue" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus-circle-fill"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                </svg></button>
             </div>
-        </main>
+        </div>
+    </main>
 
-        <footer>
+    <footer>
 
-        </footer>
-    </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
