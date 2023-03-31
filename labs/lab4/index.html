@@ -17,7 +17,7 @@
     <title>Film Library - Lab 4</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top navbar-padding">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary navbar-padding">
 
     <!-- Toggle the left sidebar -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#left-sidebar"
@@ -62,19 +62,17 @@
         <div class="row vheight-100">
             <aside class="collapse col-12 d-md-block col-md-3 bg-light below-nav" id="left-sidebar">
                     <!-- NAVIGATION MENU -->
-                    <div class="list-group m-2 text-center">
-                        <a href="#" class="list-group-item list-group-item-action active border-bottom" aria-current="true">
-                            All
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action bg-light border-0">Favorites</a>
-                        <a href="#" class="list-group-item list-group-item-action bg-light border-0">Best rated</a>
-                        <a href="#" class="list-group-item list-group-item-action bg-light border-0">Seen Last Month</a>
-                        <a href='#' class="list-group-item list-group-item-action bg-light border-0">Unseen</a>
+                    <div id="div-menu" class="list-group m-2 text-center list-group-flush">
+                        <a href="#" id="menu-all" class="list-group-item list-group-item-action border-0 menitem">All</a>
+                        <a href="#" id="menu-favorite" class="list-group-item list-group-item-action border-0 menitem">Favorites</a>
+                        <a href="#" id="menu-best" class="list-group-item list-group-item-action border-0 menitem">Best rated</a>
+                        <a href="#" id="menu-last" class="list-group-item list-group-item-action border-0 menitem">Seen Last Month</a>
+                        <a href='#' id="menu-unseen" class="list-group-item list-group-item-action border-0 menitem">Unseen</a>
                     </div>    
             </aside>
-
-            <div class="col-md-8">
-                <h1 class="strong">All</h1>
+            
+            <div class="col-md-9">
+                <h1 id="activeFilter" class="strong">All</h1>
                 
                 <table class="table table-striped mx-auto" id="filmTable">
                     <thead>

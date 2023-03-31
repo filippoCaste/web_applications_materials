@@ -27,3 +27,7 @@
 .vheight-100 {
     min-height: 100vh;
 }
+
+#div-menu {
+    border-radius: 1.5em;
+}

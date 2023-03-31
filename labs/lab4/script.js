@@ -22,11 +22,11 @@ film6.date = dayjs("March 21, 2022");
 film6.score = 5;
 
 const film7 = new Film(7, "Mare Fuori", true);
-film7.date = dayjs("April 13, 2023");
+film7.date = dayjs();
 film7.score = 5;
 
 const film8 = new Film(8, "Una pezza di Lundini", true);
-film8.date = dayjs("May 2, 2023");
+film8.date = dayjs("February 2, 2023");
 film8.score = 5;
 
 const film9 = new Film(9, "Saw IV");
@@ -44,8 +44,6 @@ library.addNewFilm(film7);
 library.addNewFilm(film8);
 library.addNewFilm(film9);
 
-console.log(film9);
-
 
 // --------
 
@@ -53,7 +51,6 @@ const max_rating = 5;
 
 const printStars = (numf) => {
     let str = "";
-    console.log(numf);
     for (let i = 0; i < numf; i++) {
         str += "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-star-fill\" viewBox=\"0 0 16 16\"><path d=\"M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z\" /></svg > "
     }
@@ -92,7 +89,6 @@ const createFilmRow  = (film) => {
     const tdRating = document.createElement('td');
     if(film.score != undefined) {
         const str = printStars(film.score);
-        console.log(str);
         tdRating.innerHTML = str;
     } 
     tr.appendChild(tdRating);
@@ -101,13 +97,116 @@ const createFilmRow  = (film) => {
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    const table = document.getElementById("filmTable");
+
+    let menuSelectedActive = document.getElementById("menu-all");
+    menuSelectedActive.classList.add("active");
+
+    filterFilmAll();
+});
+
+function filterFilmAll() {
+    // const table = document.getElementById("filmTable");
     const tableBody = document.querySelector('tbody');
 
-    for(const film of library.getFilms()) {
-        const tr = createFilmRow(film);
+    for (const f of library.getFilms()) {
+        const tr = createFilmRow(f);
         tableBody.appendChild(tr);
     }
+}
+
+function filterFilmFavorite() {
+    const tableBody = document.querySelector('tbody');
+
+    // console.log(library.getFilms().filter((film) => film.isFavorite))
+    // console.log(tableBody.children)
+
+    for (let f of library.getFavoriteFilms()) {
+        const tr = createFilmRow(f);
+        tableBody.appendChild(tr);
+    }
+}
+
+function filterBestFilms() {
+    const tableBody = document.querySelector('tbody');
+    for (let f of library.getBestRatedFilms()) {
+        const tr = createFilmRow(f);
+        tableBody.appendChild(tr);
+    }
+}
+
+function filterLastSeenFilms() {
+    const tableBody = document.querySelector('tbody');
+    for (let f of library.getLastSeenFilms()) {
+        const tr = createFilmRow(f);
+        tableBody.appendChild(tr);
+    }
+}
+
+function filterUnseenFilms() {
+    const tableBody = document.querySelector('tbody');
+    for (let f of library.getUnseenFilms()) {
+        const tr = createFilmRow(f);
+        tableBody.appendChild(tr);
+    }
+}
+
+document.getElementById("menu-all").addEventListener('click', (event) => {
+    
+    removeMenuSelection();
+    document.getElementById("activeFilter").innerText = "All";
+    const e = document.getElementById("menu-all");
+    e.classList.add('active');
+
+    filterFilmAll();
 
 });
 
+document.getElementById("menu-favorite").addEventListener('click', (event) => {
+    
+    removeMenuSelection();
+    document.getElementById("activeFilter").innerText = "Favorite";
+    const e = document.getElementById("menu-favorite");
+    e.classList.add('active');
+
+    filterFilmFavorite();
+});
+
+document.getElementById("menu-best").addEventListener('click', (event) => {
+    
+    removeMenuSelection();
+    document.getElementById("activeFilter").innerText = "Best Rated";
+    const e = document.getElementById("menu-best");
+    e.classList.add('active');
+
+    filterBestFilms();
+});
+
+document.getElementById("menu-last").addEventListener('click', (event) => {
+    
+    removeMenuSelection();
+    document.getElementById("activeFilter").innerText = "Last Seen";
+    const e = document.getElementById("menu-last");
+    e.classList.add('active');
+
+    filterLastSeenFilms()
+});
+
+document.getElementById("menu-unseen").addEventListener('click', (event) => {
+    
+    removeMenuSelection();
+    document.getElementById("activeFilter").innerText = "Unseen";
+    const e = document.getElementById("menu-unseen");
+    e.classList.add('active');
+
+    filterUnseenFilms();
+});
+
+const removeMenuSelection = () => {
+    for (let el of document.getElementsByClassName('menitem')) {
+        el.classList.remove("active");
+    }        
+
+    // also clean table
+    const body = document.querySelector('tbody');
+    body.innerHTML = '';
+}

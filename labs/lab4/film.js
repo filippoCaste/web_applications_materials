@@ -3,7 +3,7 @@
 function Film(id, title, isFavorite, date, rating) {
     this.id = id;
     this.title = title;
-    this.isFavorite = isFavorite || 0; // if not || it assigns 'undefined'
+    this.isFavorite = isFavorite || false; // if not || it assigns 'undefined'
     this.date = (date && dayjs(date)) || undefined;
     this.score = rating || undefined;
 
@@ -60,5 +60,28 @@ function FilmLibrary(film) {
 
     this.getFilms = () => {
         return this.films;
+    }
+
+    this.getFavoriteFilms = () => {
+        return this.films.filter((f) => f.isFavorite);
+    }
+
+    this.getBestRatedFilms = () => {
+        return this.films.filter((f) => f.score==5)
+    }
+
+    this.getUnseenFilms = () => {
+        return this.films.filter((f) => f.date==undefined)
+    }
+
+    this.getLastSeenFilms = () => {
+        return this.films.filter((f) => {
+            const limitDate = dayjs().subtract(30, 'days');
+            if (f.date != undefined && f.date.isAfter(limitDate) && !f.date.isAfter(dayjs())) {
+                return true;
+            } else {
+                return false;
+            }
+        })
     }
 }
