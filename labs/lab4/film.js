@@ -84,4 +84,8 @@ function FilmLibrary(film) {
             }
         })
     }
+
+    this.removeFilm = (filmTitle) => {
+        this.films = [...this.films.filter((f) => f.title!=filmTitle)];
+    }
 }

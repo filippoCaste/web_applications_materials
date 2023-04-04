@@ -31,3 +31,16 @@
 #div-menu {
     border-radius: 1.5em;
 }
+
+.btn-outline-danger{
+    border: none;
+}
+
+.btn-outline-danger:hover {
+    background-color: inherit;
+    color: #0d6efd;
+}
+
+.bi-star:hover {
+    color:#0d6efd;
+}
