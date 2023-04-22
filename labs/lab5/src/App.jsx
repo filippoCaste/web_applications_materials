@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Film, FilmLibrary } from './film'
 
-import { Button, Navbar, NavbarBrand, Container, Nav, Form, ListGroup } from "react-bootstrap";
+import { Navbar, Container, Nav, Form, ListGroup, Row, Col, Button } from "react-bootstrap";
+import { FilmList } from './Components';
 
 
 // DATA
@@ -52,45 +53,62 @@ library.addNewFilm(film9);
 
 
 function App() {
-  const [section, setSection] = useState('all');
+  const [section, setSection] = useState('All');
+  // const [films, setFilms] = useState([...library.getFilms()]);
 
   return (
 
     <>
-    <Navbar fixed="top" variant='dark' bg="primary">
+      <header>
+      <Navbar fixed="top" variant='dark' bg="primary">
+        <Container>
+          <Navbar.Brand href="#home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera-reels-fill" viewBox="0 0 16 16">
+              <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+              <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
+            </svg> {' '} Film Library
+          </Navbar.Brand>
+
+          {/* <Navbar.Collapse id="basic-navbar-nav"> */}
+          <Form>
+            <Form.Control type="text" placeholder="Search" />
+          </Form>
+
+          <Nav>
+            <Nav.Link href="#user">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+              </svg>
+            </Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      </header>
+      <main>
       <Container>
-        <Navbar.Brand href="#home">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-camera-reels-fill" viewBox="0 0 16 16">
-            <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-            <path d="M9 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-            <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7z" />
-          </svg> {' '} Film Library
-        </Navbar.Brand>
-
-        {/* <Navbar.Collapse id="basic-navbar-nav"> */}
-        {/* <Nav className="me-auto"> */}
-        <Nav.Link href="#search">
-          <Form.Control
-            type="text" placeholder="Search" />
-
-        </Nav.Link>
-        <Nav.Link href="#user">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-            <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-          </svg>
-        </Nav.Link>
+        <Row>
+          <Col md={4}>
+            <ListGroup show fixed='left' align='start'>
+              <ListGroup.Item action onClick={() => setSection('All')} className={section === "All" ? 'active' : ''} >All</ListGroup.Item>
+              <ListGroup.Item action onClick={() => setSection('Favorites')} className={section === "Favorites" ? 'active' : ''} >Favorites</ListGroup.Item>
+              <ListGroup.Item action onClick={() => setSection('Best rated')} className={section === "Best rated" ? 'active' : ''}>Best Rated</ListGroup.Item>
+              <ListGroup.Item action onClick={() => setSection('Last seen')} className={section === "Last Seen" ? 'active' : ''}>Last Seen</ListGroup.Item>
+              <ListGroup.Item action onClick={() => setSection('Unseen')} className={section === "Unseen" ? 'active' : ''}>Unseen</ListGroup.Item>
+            </ListGroup>
+          </Col>
+          <Col md={8}>
+            <FilmList section={section} films={library.getFilms()}/>
+          </Col>
+        </Row>
       </Container>
-    </Navbar>
-  
-      <ListGroup show fixed='left' align='start' as="ul">
-        <ListGroup.Item as="li" onClick={() => setSection('all')} active>All</ListGroup.Item>
-        <ListGroup.Item as="li" onClick={() => setSection('favorites')}>Favorites</ListGroup.Item>
-        <ListGroup.Item as="li" onClick={() => setSection('best-rated')}>Best Rated</ListGroup.Item>
-        <ListGroup.Item as="li" onClick={() => setSection('last-seen')}>Last Seen</ListGroup.Item>
-        <ListGroup.Item as="li" onClick={() => setSection('unseen')}>Unseen</ListGroup.Item>
-    </ListGroup>
-      
+      <a className="position-absolute bottom-1 end-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="primary" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+        </svg>
+      </a>
+      </main>
     </>
 
   )
