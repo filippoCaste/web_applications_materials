@@ -7,7 +7,6 @@ function Film(id, title, isFavorite, date, rating) {
     this.isFavorite = isFavorite || false; // if not || it assigns 'undefined'
     this.date = (date && dayjs(date)) || undefined;
     this.score = rating || undefined;
-
 }
 
 function FilmLibrary(film) {
@@ -78,7 +77,7 @@ function FilmLibrary(film) {
     this.getLastSeenFilms = () => {
         return this.films.filter((f) => {
             const limitDate = dayjs().subtract(30, 'days');
-            if (f.date != undefined && f.date.isAfter(limitDate) && !f.date.isAfter(dayjs())) {
+            if (f.date != undefined && dayjs(f.date).isAfter(limitDate) && !dayjs(f.date).isAfter(dayjs())) {
                 return true;
             } else {
                 return false;

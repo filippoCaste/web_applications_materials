@@ -1,51 +1,23 @@
 import dayjs from 'dayjs';
-import {useState } from 'react'
-import { Form, InputGroup, Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 import { Film, FilmLibrary } from './film'
 
 
 function FilmList (props) {
 
-    const all_films = props.films;
-    let [films, setFilms] = useState([...all_films]);
-
-    switch (props.section) {
-        case 'All':
-            () => setFilms(all_films);
-            break;
-
-        case 'Favorites':
-            () =>  setFilms(all_films.getFavoriteFilms());
-            break;
-
-        case 'Best rated':
-            () => setFilms(all_films.getBestRated())
-            break;
-
-        case 'Last seen':
-            () =>  setFilms(all_films.getLastSeenFilms())
-            break;
-
-        case 'Unseen':
-            () => setFilms(all_films.getUnseen())
-            break;
-
-        default:
-            break;
-    }
-
+    // console.log(props.films)
+    // console.log(all_films)
 
     return (<>
-        <FilmDetails films={films} section={props.section}/>
+        <FilmDetails films={props.films} section={props.section} addToFavorite={props.addToFavorite} />
     </>)
 
 }
 
 function FilmDetails(props) {
-
     return <>
         <h1>{props.section}</h1>
-        <Table hover>
+        <Table hover responsive>
             <thead>
                 <tr>
                     <th scope="col">Title</th>
@@ -55,7 +27,7 @@ function FilmDetails(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.films.map((f) => (<FilmRow key={f.id} film={f} films={props.films} />))}
+                {props.films.map((f) => (<FilmRow key={f.id} film={f} addToFavorite={props.addToFavorite} />))}
             </tbody>
             <tfoot></tfoot>
         </Table>
@@ -68,7 +40,7 @@ function FilmRow(props) {
         {/* <td>{props.f.id}</td> */}
         <td>{props.film.title}</td>
         <td> 
-            <Favorite film={props.film} />
+            <Favorite film={props.film} addToFavorite={props.addToFavorite}/>
         </td>
         <td>{(props.film.date && dayjs(props.film.date).format('YYYY-MM-DD'))}</td>
         <td>
@@ -78,7 +50,6 @@ function FilmRow(props) {
 }
 
 function Favorite(props) {
-        console.log(props.film.isFavorite + "  TODO")
         return <Form>
             <Form.Check type='switch' className={props.film.isFavorite === true ? 'checked' : ''} />
         </Form>
