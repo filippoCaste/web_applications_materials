@@ -51,7 +51,7 @@ function FilmRow(props) {
 
 function Favorite(props) {
         return <Form>
-            <Form.Check type='switch' className={props.film.isFavorite === true ? 'checked' : ''} />
+            <Form.Check type='switch' label='Favorite' defaultChecked={props.film.isFavorite === true ? true : false} />
         </Form>
 }
 
