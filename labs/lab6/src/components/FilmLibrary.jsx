@@ -1,4 +1,4 @@
-import 'dayjs';
+import dayjs from "dayjs";
 import { Table, Form } from 'react-bootstrap/'
 
 function FilmTable(props) {
@@ -27,13 +27,19 @@ function FilmRow(props) {
           </p>
         </td>
         <td>
-          <Form.Check type="switch" label="Favorite" defaultChecked={props.filmData.favorite ? true : false}/>
+          <Form.Check type="switch" label="Favorite" defaultChecked={props.filmData.isFavorite ? true : false}/>
         </td>
         <td>
-          <small>{formatWatchDate(props.filmData.watchDate, 'MMMM D, YYYY')}</small>
+          <small>{formatWatchDate(dayjs(props.filmData.date), 'MMMM D, YYYY')}</small>
         </td>
         <td>
-          <Rating rating={props.filmData.rating} maxStars={5}/>
+          <Rating rating={props.filmData.score} maxStars={5}/>
+        </td>
+        <td>
+          <i className="bi bi-pencil-square"></i>
+        </td>
+        <td>
+          <i className="bi bi-trash3-fill"></i>
         </td>
       </tr>
     );
