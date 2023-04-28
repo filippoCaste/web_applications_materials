@@ -18,7 +18,6 @@ import { FILMS } from './data';
 import {Navigation} from './components/Navigation';
 import Filters from './components/Filters';
 import FilmTable from './components/FilmLibrary';
-import { AddFilmForm } from './components/AddFilmForm';
 import { Film } from './film';
 
 // FAKE DATA
@@ -72,8 +71,13 @@ function App() {
     ))
   }
 
-  const handleEdit = () => {
-    
+  const editFilm = (id, title, favorite, date, score) => {
+    console.log(films)
+    setFilms((oldFilms) => {
+      return [...oldFilms.map((f) => f.id == id ? new Film(id, title, favorite, date, score) : f)];
+    })
+    console.log(films)
+    setMode('view');
   }
 
   return (
@@ -91,9 +95,14 @@ function App() {
           <h1 className="pb-3">Filter: <span className="notbold">{filters[activeFilter].label}</span></h1>
           <FilmTable activeFilter={filters[activeFilter].label}
                      films={films.filter(filters[activeFilter].filterFunction)}
-                     handleDelete={handleDelete}/>
+                     handleDelete={handleDelete}
+                     editFilm={editFilm}
+                     mode={mode}
+                     setMode={setMode}
+                     handleAdd={handleAdd}
+                     />
           {mode === 'view' && <Button variant="primary" size="lg" className="fixed-right-bottom" onClick={() => setMode('add')}> &#43; </Button>}
-          {mode==='add' && <AddFilmForm setMode={setMode} mode={mode} handleAdd={handleAdd}/>}
+
         </Col>
       </Row>
 

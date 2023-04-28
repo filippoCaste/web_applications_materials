@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Alert, Button, Form, FormGroup, InputGroup } from "react-bootstrap"
 
-function AddFilmForm(props) {
+function AddEditFilmForm(props) {
 
-    const [title, setTitle] = useState('');
-    const [date, setDate] = useState('');
-    const [favorite, setFavorite] = useState(false);
-    const [score, setScore] = useState('');
+    const [initialValue, setInitialValue] = useState(props.initialValue || ''); // in case of editing
+    console.log(initialValue)
+
+    const [id, setId] = useState(initialValue.id || '')
+    const [title, setTitle] = useState(initialValue.title || '');
+    const [date, setDate] = useState(initialValue.date || '');
+    const [favorite, setFavorite] = useState(initialValue.isFavorite );
+    const [score, setScore] = useState(initialValue.score || '');
 
     const[err,setErr] = useState('');
     const [validated, setValidated] = useState(false);
-
-    // props.setMode('view');
 
     const handleAdd = (event) => {
         const form = event.currentTarget;
@@ -20,13 +22,33 @@ function AddFilmForm(props) {
             event.stopPropagation();
         }
 
-        setValidated(true);
-
         if(title!='') {
             props.handleAdd(title, favorite, date, score);
         } else {
             setErr('Missing data: provide at least the title to continue')
         }
+
+        setValidated(true);
+    }
+
+    const editFilm = (event) => {
+
+        console.log(id)
+
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        if (title != '') {
+            props.editFilm(id, title, favorite, date, score);
+        } else {
+            setErr('Missing data: provide at least the title to continue')
+        }
+        console.log('hhhere')
+        setValidated(true);
+
     }
 
     return (
@@ -53,23 +75,24 @@ function AddFilmForm(props) {
                     <Form.Control value={date} onChange={(ev) => setDate(ev.target.value)} type='date' name='date' placeholder="DD/MM/YYYY" />
                 </FormGroup>
 
+                {/* Validate 1-5 TODO */}
                 <FormGroup controlId="score">
                     <Form.Label className="fw-light"> Rate </Form.Label>
                     <Form.Control value={score} onChange={(ev) => setScore(ev.target.value)} type='numeric' name='score' placeholder="Rate" />
                 </FormGroup>
 
+                <br/> {err != '' && <Alert key='danger' variant='danger'> {err} </Alert>} 
+
                 <Form.Group controlId="button">
                     <Form.Label className='fw-light'>&nbsp;</Form.Label><br />
-                    {props.mode === 'add' && <Button variant='success' id="addbutton" onClick={handleAdd}>ADD</Button>}
-                    {/* {props.mode === 'edit' && <Button variant='success' id="savebutton" onClick={handleSave}>SAVE</Button>} */}
+                    {props.mode === 'add' && <Button variant='success' id="addButton" onClick={handleAdd}>ADD</Button>}
+                    {props.mode === 'edit' && <Button variant='success' id="saveButton" onClick={editFilm}>SAVE</Button>}
                     {/* {' '}<Button variant='secondary' id="addbutton" onClick={props.handleCancel}>CANCEL</Button> */}
                 </Form.Group>
-
-                {err != '' && <Alert key='danger' variant='danger'> {err} </Alert>}
             </Form>
 
         </div>
     );
 }
 
-export {AddFilmForm}
+export {AddEditFilmForm}

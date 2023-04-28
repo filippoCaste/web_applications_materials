@@ -1,16 +1,30 @@
 import dayjs from "dayjs";
 import { Table, Form, Button } from 'react-bootstrap/'
+import { AddEditFilmForm } from "./AddEditFilmForm";
+import { useState } from "react";
 
 function FilmTable(props) {
   const {films, activeFilter} = props;
 
+  const [editingFilm, setEditingFilm] = useState('');
+
+  const handleEdit = (filmId) => {
+    setEditingFilm(films.filter((f) => (f.id === filmId))[0]);
+    props.setMode('edit');
+  }
+
   return (
+    <>
     <Table striped>
       <tbody>
-        { films.map((film) => <FilmRow filmData={film} key={film.id} handleDelete={props.handleDelete} />) }
+        { films.map((film) => <FilmRow filmData={film} key={film.id} handleDelete={props.handleDelete} handleEdit={handleEdit}/>) }
       </tbody>
     </Table>
-  );
+    <div>
+      { props.mode === 'add' && <AddEditFilmForm mode={props.mode} handleAdd={props.handleAdd} /> }
+      { props.mode === 'edit' && <AddEditFilmForm mode={props.mode} editFilm={props.editFilm} initialValue={editingFilm} /> }
+    </div>
+    </>);
 }
   
 function FilmRow(props) {
@@ -36,8 +50,8 @@ function FilmRow(props) {
           <Rating rating={props.filmData.score} maxStars={5}/>
         </td>
         <td>
-          <Form onSubmit={(f) => props.handleEdit(f)}>
-            <Button variant="success" id="editButton" type="submit">
+          <Form>
+            <Button variant="success" id="editButton" onClick={() => props.handleEdit(props.filmData.id)}>
               <i className="bi bi-pencil-square"></i>
             </Button>
           </Form>
