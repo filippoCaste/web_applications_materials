@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Table, Form } from 'react-bootstrap/'
+import { Table, Form, Button } from 'react-bootstrap/'
 
 function FilmTable(props) {
   const {films, activeFilter} = props;
@@ -7,7 +7,7 @@ function FilmTable(props) {
   return (
     <Table striped>
       <tbody>
-        { films.map((film) => <FilmRow filmData={film} key={film.id}/>) }
+        { films.map((film) => <FilmRow filmData={film} key={film.id} handleDelete={props.handleDelete} />) }
       </tbody>
     </Table>
   );
@@ -36,10 +36,18 @@ function FilmRow(props) {
           <Rating rating={props.filmData.score} maxStars={5}/>
         </td>
         <td>
-          <i className="bi bi-pencil-square"></i>
+          <Form onSubmit={(f) => props.handleEdit(f)}>
+            <Button variant="success" id="editButton" type="submit">
+              <i className="bi bi-pencil-square"></i>
+            </Button>
+          </Form>
         </td>
         <td>
-          <i className="bi bi-trash3-fill"></i>
+          <Form onSubmit={() => props.handleDelete(props.filmData.id)}>
+            <Button type='submit' variant='danger' id='deleteButton'>
+              <i className="bi bi-trash3-fill"></i>
+            </Button>
+          </Form>
         </td>
       </tr>
     );

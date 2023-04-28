@@ -62,8 +62,18 @@ function App() {
 
       return [...oldFilms, newFilm];
     })
-
     setMode('view');
+  }
+
+  const handleDelete = (filmId) => {
+    console.log(filmId);
+    setFilms((oldFilms) => (
+      oldFilms.filter((f) => f.id !== filmId)
+    ))
+  }
+
+  const handleEdit = () => {
+    
   }
 
   return (
@@ -80,7 +90,8 @@ function App() {
         <Col md={8} xl={9} className="below-nav">
           <h1 className="pb-3">Filter: <span className="notbold">{filters[activeFilter].label}</span></h1>
           <FilmTable activeFilter={filters[activeFilter].label}
-                     films={films.filter(filters[activeFilter].filterFunction)}/>
+                     films={films.filter(filters[activeFilter].filterFunction)}
+                     handleDelete={handleDelete}/>
           {mode === 'view' && <Button variant="primary" size="lg" className="fixed-right-bottom" onClick={() => setMode('add')}> &#43; </Button>}
           {mode==='add' && <AddFilmForm setMode={setMode} mode={mode} handleAdd={handleAdd}/>}
         </Col>
