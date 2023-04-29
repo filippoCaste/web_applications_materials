@@ -4,7 +4,7 @@ import { Film, FilmLibrary } from "./film";
 import dayjs from "dayjs";
 
 const film1 = new Film(1, 'Pulp Fiction');
-film1.score = 2;
+// film1.score = 2;
 
 const film2 = new Film(2, '21 Grams', false);
 film2.date = 'March 17, 2023';

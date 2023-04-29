@@ -44,7 +44,7 @@ function FilmRow(props) {
           <Form.Check type="switch" label="Favorite" defaultChecked={props.filmData.isFavorite ? true : false}/>
         </td>
         <td>
-          <small>{formatWatchDate(dayjs(props.filmData.date), 'MMMM D, YYYY')}</small>
+          <small>{props.filmData.date && formatWatchDate(dayjs(props.filmData.date), 'MMMM D, YYYY')}</small>
         </td>
         <td>
           <Rating rating={props.filmData.score} maxStars={5}/>

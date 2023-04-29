@@ -46,17 +46,20 @@ function App() {
   };
 
   const isSeenLastMonth = (film) => {
-    if('date' in film) {  // Accessing watchDate only if defined
-      const diff = film.watchDate.diff(dayjs(),'month')
-      const isLastMonth = diff <= 0 && diff > -1 ;      // last month
-      return isLastMonth;
+    if('date' in film) {  // Accessing date only if defined
+      const limitDate = dayjs().subtract(30, 'days');
+      if (film.date != undefined && dayjs(film.date).isAfter(limitDate) && !dayjs(film.date).isAfter(dayjs())) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
   const handleAdd = (title, isFavorite, date, score) => {
     setFilms((oldFilms) => {
       const newId = Math.max(...films.map((f) => f.id)) + 1;
-      const newDate = (date && dayjs(date)) || dayjs();
+      const newDate = (date && dayjs(date)) || undefined;
       const newFilm = new Film(newId, title, isFavorite, newDate, score);
 
       return [...oldFilms, newFilm];
@@ -65,14 +68,14 @@ function App() {
   }
 
   const handleDelete = (filmId) => {
-    console.log(filmId);
+    // console.log(filmId);
     setFilms((oldFilms) => (
       oldFilms.filter((f) => f.id !== filmId)
     ))
   }
 
   const editFilm = (id, title, favorite, date, score) => {
-    console.log(films)
+    // console.log(films)
     setFilms((oldFilms) => {
       return [...oldFilms.map((f) => f.id == id ? new Film(id, title, favorite, date, score) : f)];
     })

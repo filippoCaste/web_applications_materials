@@ -9,7 +9,7 @@ function AddEditFilmForm(props) {
     const [id, setId] = useState(initialValue.id || '')
     const [title, setTitle] = useState(initialValue.title || '');
     const [date, setDate] = useState(initialValue.date || '');
-    const [favorite, setFavorite] = useState(initialValue.isFavorite );
+    const [favorite, setFavorite] = useState(initialValue.isFavorite || false );
     const [score, setScore] = useState(initialValue.score || '');
 
     const[err,setErr] = useState('');
@@ -48,7 +48,13 @@ function AddEditFilmForm(props) {
         }
         console.log('hhhere')
         setValidated(true);
+    }
 
+    const handleCancel = () => {
+        setDate('');
+        setFavorite(false);
+        setScore('');
+        setTitle('');
     }
 
     return (
@@ -87,7 +93,7 @@ function AddEditFilmForm(props) {
                     <Form.Label className='fw-light'>&nbsp;</Form.Label><br />
                     {props.mode === 'add' && <Button variant='success' id="addButton" onClick={handleAdd}>ADD</Button>}
                     {props.mode === 'edit' && <Button variant='success' id="saveButton" onClick={editFilm}>SAVE</Button>}
-                    {/* {' '}<Button variant='secondary' id="addbutton" onClick={props.handleCancel}>CANCEL</Button> */}
+                    {' '}<Button variant='warning' id="addbutton" onClick={handleCancel}>CANCEL</Button>
                 </Form.Group>
             </Form>
 
