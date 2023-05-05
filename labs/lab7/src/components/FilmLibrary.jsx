@@ -1,39 +1,30 @@
 import dayjs from "dayjs";
 import { Table, Form, Button } from 'react-bootstrap/'
-import { AddEditFilmForm } from "./AddEditFilmForm";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function FilmTable(props) {
   const activeFilter = useParams();
-  console.log(activeFilter)
-  console.log(activeFilter.filterName)
 
-  const [editingFilm, setEditingFilm] = useState('');
+  const navigate = useNavigate();
 
   const films = props.films.filter(props.filters[activeFilter.filterName || 'filter-all'].filterFunction);
-
-  const handleEdit = (filmId) => {
-    setEditingFilm(films.filter((f) => (f.id === filmId))[0]);
-    props.setMode('edit');
-  }
 
   return (
     <>
       <h1 className="pb-3">Filter: <span className="notbold">{props.filters[activeFilter.filterName || 'filter-all'].label}</span></h1>
     <Table striped>
       <tbody>
-        { films.map((film) => <FilmRow filmData={film} key={film.id} handleDelete={props.handleDelete} handleEdit={handleEdit}/>) }
+        { films.map((film) => <FilmRow filmData={film} key={film.id} handleDelete={props.handleDelete}/>) }
       </tbody>
     </Table>
-    <div>
-      { props.mode === 'add' && <AddEditFilmForm mode={props.mode} handleAdd={props.handleAdd} /> }
-      { props.mode === 'edit' && <AddEditFilmForm mode={props.mode} editFilm={props.editFilm} initialValue={editingFilm} /> }
-    </div>
+
+    <Button variant="primary" size="lg" className="fixed-right-bottom" onClick={() => navigate('/add')}> &#43; </Button>
+
     </>);
 }
   
 function FilmRow(props) {
+    const navigate = useNavigate();
     const formatWatchDate = (dayJsDate, format) => {
       return dayJsDate ? dayJsDate.format(format) : '';
     }
@@ -56,7 +47,7 @@ function FilmRow(props) {
         </td>
         <td>
           <Form>
-            <Button variant="success" id="editButton" onClick={() => props.handleEdit(props.filmData.id)}>
+            <Button variant="success" id="editButton" onClick={() => navigate(`/edit/${props.filmData.id}`)}>
               <i className="bi bi-pencil-square"></i>
             </Button>
           </Form>

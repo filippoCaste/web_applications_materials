@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { Alert, Button, Form, FormGroup, InputGroup } from "react-bootstrap"
+import { Alert, Button, Form, FormGroup, InputGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function AddEditFilmForm(props) {
+function AddFilm(props) {
 
-    const [initialValue, setInitialValue] = useState(props.initialValue || ''); // in case of editing
-    console.log(initialValue)
-
-    const [id, setId] = useState(initialValue.id || '')
-    const [title, setTitle] = useState(initialValue.title || '');
-    const [date, setDate] = useState(initialValue.date || '');
-    const [favorite, setFavorite] = useState(initialValue.isFavorite || false );
-    const [score, setScore] = useState(initialValue.score || '');
-
-    const[err,setErr] = useState('');
+    const [err, setErr] = useState('');
     const [validated, setValidated] = useState(false);
+
+    const [id, setId] = useState('')
+    const [title, setTitle] = useState('');
+    const [date, setDate] = useState('');
+    const [favorite, setFavorite] = useState(false);
+    const [score, setScore] = useState('');
+
+    const navigate = useNavigate();
 
     const handleAdd = (event) => {
         const form = event.currentTarget;
@@ -22,32 +22,14 @@ function AddEditFilmForm(props) {
             event.stopPropagation();
         }
 
-        if(title!='') {
+        if (title != '') {
             props.handleAdd(title, favorite, date, score);
         } else {
             setErr('Missing data: provide at least the title to continue')
         }
 
         setValidated(true);
-    }
-
-    const editFilm = (event) => {
-
-        console.log(id)
-
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        if (title != '') {
-            props.editFilm(id, title, favorite, date, score);
-        } else {
-            setErr('Missing data: provide at least the title to continue')
-        }
-        console.log('hhhere')
-        setValidated(true);
+        navigate('/');
     }
 
     const handleCancel = () => {
@@ -55,6 +37,7 @@ function AddEditFilmForm(props) {
         setFavorite(false);
         setScore('');
         setTitle('');
+        navigate('/');
     }
 
     return (
@@ -87,18 +70,18 @@ function AddEditFilmForm(props) {
                     <Form.Control value={score} onChange={(ev) => setScore(ev.target.value)} type='numeric' name='score' placeholder="Rate" />
                 </FormGroup>
 
-                <br/> {err != '' && <Alert key='danger' variant='danger'> {err} </Alert>} 
+                <br /> {err != '' && <Alert key='danger' variant='danger'> {err} </Alert>}
 
                 <Form.Group controlId="button">
                     <Form.Label className='fw-light'>&nbsp;</Form.Label><br />
-                    {props.mode === 'add' && <Button variant='success' id="addButton" onClick={handleAdd}>ADD</Button>}
-                    {props.mode === 'edit' && <Button variant='success' id="saveButton" onClick={editFilm}>SAVE</Button>}
+                    <Button variant='success' id="addButton" onClick={handleAdd}>ADD</Button>
                     {' '}<Button variant='warning' id="addbutton" onClick={handleCancel}>CANCEL</Button>
                 </Form.Group>
             </Form>
 
         </div>
     );
+
 }
 
-export {AddEditFilmForm}
+export {AddFilm} ;

@@ -19,15 +19,15 @@ import {Navigation} from './components/Navigation';
 import Filters from './components/Filters';
 import FilmTable from './components/FilmLibrary';
 import { Film } from './film';
-import { AddEditFilmForm } from './components/AddEditFilmForm';
 
 import { Routes, Route, BrowserRouter, Outlet, useParams, useNavigate } from 'react-router-dom'
 import { PageNotFound } from './components/PageNotFound';
+import { AddFilm } from './components/AddFilm';
+import { EditFilm } from './components/EditFilm';
 
 function Layout(props) {
 
-  const activeFilter = 'filter-all';
-  
+  const activeFilter = 'filter-all';  
   return (
     <>
 
@@ -53,8 +53,6 @@ function App() {
 
   // const [activeFilter, setActiveFilter] = useState('filter-all');
   const [films, setFilms] = useState([...FILMS.getFilms()]);
-  const [mode, setMode] = useState('view');
-  // 'view', 'add', 'edit'
 
   /**
    * Defining a structure for Filters
@@ -90,7 +88,6 @@ function App() {
 
       return [...oldFilms, newFilm];
     })
-    setMode('view');
   }
 
   const handleDelete = (filmId) => {
@@ -104,7 +101,6 @@ function App() {
       return [...oldFilms.map((f) => f.id == id ? new Film(id, title, favorite, date, score) : f)];
     })
     console.log(films)
-    setMode('view');
   }
 
   return (
@@ -116,19 +112,15 @@ function App() {
             films={films}
             handleDelete={handleDelete}
             editFilm={editFilm}
-            mode={mode}
-            setMode={setMode}
             handleAdd={handleAdd}
           />} />
-          <Route path='/edit/:filmId' element={<AddEditFilmForm />}/>
-          <Route path='/add' element={<AddEditFilmForm />} />
+          <Route path='/edit/:filmId' element={<EditFilm editFilm={editFilm} films={films} />}/>
+          <Route path='/add' element={<AddFilm handleAdd={handleAdd} />} />
           <Route path='/filters/:filterName' element={
             <FilmTable filters={filters}
               films={films}
               handleDelete={handleDelete}
               editFilm={editFilm}
-              mode={mode}
-              setMode={setMode}
               handleAdd={handleAdd}
             />} />
           <Route path='*' element={<PageNotFound />} />
