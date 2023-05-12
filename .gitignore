@@ -1,3 +1,5 @@
 .DS_Store
 Thumbs.db
-/labs/lab1/node_modules 
+/*/*/node_modules
+*/node_modules
+*/*/*/node_modules
